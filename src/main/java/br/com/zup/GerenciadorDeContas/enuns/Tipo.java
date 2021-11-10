@@ -1,2 +1,9 @@
-package br.com.zup.GerenciadorDeContas.enuns;public class Tipo {
+package br.com.zup.GerenciadorDeContas.enuns;
+
+public enum Tipo {
+    LUZ,
+    AGUA,
+    COMIDA,
+    OUTROS
 }
+
