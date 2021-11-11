@@ -44,6 +44,14 @@ public class ContaService {
 
         throw new ContaNaoEncontradaException();
     }
+    public Conta pagarConta(int id) {
+        Conta conta = localizarContaPorId(id);
+        conta.setStatus(Status.PAGO);
+        conta.setDataDePagamento(formatarDataEHora());
+        contaRepository.save(conta);
+
+        return conta;
+    }
 
 
 }
