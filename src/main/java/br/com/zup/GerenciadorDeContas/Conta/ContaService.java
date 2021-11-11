@@ -52,6 +52,13 @@ public class ContaService {
 
         return conta;
     }
+    public LocalDateTime formatarDataEHora() {
+        LocalDateTime dataAgora = LocalDateTime.now();
+        DateTimeFormatter formatar = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dataDePagamento = dataAgora.format(formatar);
+
+        return LocalDateTime.parse(dataDePagamento, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 
 
 }
