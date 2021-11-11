@@ -1,11 +1,15 @@
 package br.com.zup.GerenciadorDeContas.Conta;
 
 import br.com.zup.GerenciadorDeContas.enuns.Status;
+import br.com.zup.GerenciadorDeContas.exception.ContaNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContaService {
@@ -31,6 +35,14 @@ public class ContaService {
     public List<Conta> buscarContasCadastradas() {
         Iterable<Conta> listaContas = contaRepository.findAll();
         return (List<Conta>) listaContas;
+    }
+    public Conta localizarContaPorId(int id) {
+        Optional<Conta> contaOptional = contaRepository.findById(id);
+        if (contaOptional.isPresent()) {
+            return contaOptional.get();
+        }
+
+        throw new ContaNaoEncontradaException();
     }
 
 
