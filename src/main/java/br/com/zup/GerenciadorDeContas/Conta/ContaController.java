@@ -3,6 +3,7 @@ package br.com.zup.GerenciadorDeContas.Conta;
 
 import br.com.zup.GerenciadorDeContas.dtos.ResumoContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.SaidaContaDTO;
+import br.com.zup.GerenciadorDeContas.dtos.StatusContaDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,5 +41,11 @@ public class ContaController {
             listaResumo.add(resumo);
         }
         return listaResumo;
+    }
+    @PutMapping("/{id}")
+    public SaidaContaDTO pagarConta(@RequestBody StatusContaDTO statusContaDTO, @PathVariable int id) {
+        SaidaContaDTO respostaCadastroDTO = modelMapper.map(contaService.pagarConta(id), SaidaContaDTO.class);
+        return respostaCadastroDTO;
+
     }
 }
