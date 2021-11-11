@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
+        @Enumerated(EnumType.STRING)
         private Tipo tipo;
         @Column(nullable = false)
         private String nome;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
         private LocalDate dataDeVencimento;
         @Column(nullable = true)
         private LocalDateTime dataDePagamento;
+        @Enumerated(EnumType.STRING)
         private Status status;
 
         public Conta() {
