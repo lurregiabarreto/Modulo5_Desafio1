@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ContaService {
@@ -27,7 +28,10 @@ public class ContaService {
         return conta.getStatus();
 
     }
-
+    public List<Conta> buscarContasCadastradas() {
+        Iterable<Conta> listaContas = contaRepository.findAll();
+        return (List<Conta>) listaContas;
+    }
 
 
 }
