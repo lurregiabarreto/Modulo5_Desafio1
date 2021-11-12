@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class ControllerAdvisor {
@@ -18,9 +19,8 @@ public class ControllerAdvisor {
         List<MensagemDeErro> erros = new ArrayList<>();
 
         for (FieldError referencia : exception.getFieldErrors()) {
-            MensagemDeErro erroValidacao = new MensagemDeErro(referencia.getField(),
-                    referencia.getDefaultMessage());
-            erros.add(erroValidacao);
+            MensagemDeErro mensagemDeErro = new MensagemDeErro(referencia.getDefaultMessage());
+            erros.add(mensagemDeErro);
         }
 
         return erros;
