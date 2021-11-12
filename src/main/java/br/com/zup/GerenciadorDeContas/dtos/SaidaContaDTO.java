@@ -2,6 +2,7 @@ package br.com.zup.GerenciadorDeContas.dtos;
 
 import br.com.zup.GerenciadorDeContas.enuns.Status;
 import br.com.zup.GerenciadorDeContas.enuns.Tipo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ public class SaidaContaDTO {
     private double valor;
     private Tipo tipo;
     private LocalDate dataDeVencimento;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDePagamento;
     private Status status;
 
