@@ -5,6 +5,8 @@ import br.com.zup.GerenciadorDeContas.dtos.ContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.ResumoContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.SaidaContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.StatusContaDTO;
+import br.com.zup.GerenciadorDeContas.enuns.Status;
+import br.com.zup.GerenciadorDeContas.enuns.Tipo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +37,9 @@ public class ContaController {
     }
 
     @GetMapping
-    public List<ResumoContaDTO> buscarContasCadastradas() {
+    public List<ResumoContaDTO> buscarContasCadastradas(@RequestParam(required = false) Status status,
+                                                        @RequestParam(required = false) Tipo tipo,
+                                                        @RequestParam(required = false) Double valor) {
         List<ResumoContaDTO> listaResumo = new ArrayList<>();
 
         for (Conta conta : contaService.buscarContasCadastradas()) {
