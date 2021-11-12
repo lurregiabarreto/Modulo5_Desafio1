@@ -1,6 +1,7 @@
 package br.com.zup.GerenciadorDeContas.Conta;
 
 
+import br.com.zup.GerenciadorDeContas.dtos.ContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.ResumoContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.SaidaContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.StatusContaDTO;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +26,8 @@ public class ContaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SaidaContaDTO cadastrarConta(@RequestBody SaidaContaDTO saidaContaDTO) {
-        Conta conta = modelMapper.map(saidaContaDTO, Conta.class);
+    public SaidaContaDTO cadastrarConta(@RequestBody  @Valid ContaDTO contaDTO) {
+        Conta conta = modelMapper.map(contaDTO, Conta.class);
         SaidaContaDTO respostaCadastroDTO = modelMapper.map(contaService.cadastrarConta(conta), SaidaContaDTO.class);
 
         return respostaCadastroDTO;
