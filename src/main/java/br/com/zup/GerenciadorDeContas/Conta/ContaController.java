@@ -58,5 +58,10 @@ public class ContaController {
         return respostaCadastroDTO;
 
     }
+    @GetMapping("/{id}")
+    public Conta pesquisarContaPorId(@PathVariable int id) {
+        return contaService.localizarContaPorId(id);
+    }
+
 
 }
