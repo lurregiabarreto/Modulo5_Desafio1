@@ -42,7 +42,7 @@ public class ContaService {
             return contaOptional.get();
         }
 
-        throw new ContaNaoEncontradaException();
+        throw new ContaNaoEncontradaException("Conta não encontrada!");
     }
     public Conta pagarConta(int id) {
         Conta conta = localizarContaPorId(id);
