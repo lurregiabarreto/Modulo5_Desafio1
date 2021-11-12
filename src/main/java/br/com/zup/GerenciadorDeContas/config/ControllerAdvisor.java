@@ -22,8 +22,8 @@ public class ControllerAdvisor {
         List<MensagemErroValidacao> erros = new ArrayList<>();
 
         for (FieldError fieldError : exception.getFieldErrors()) {
-            MensagemErroValidacao mensagemErroValidacao = new MensagemErroValidacao(fieldError.getField(),
-                    fieldError.getDefaultMessage());
+            MensagemErroValidacao mensagemErroValidacao = new MensagemErroValidacao( fieldError.getDefaultMessage(),
+                    fieldError.getField());
             erros.add(mensagemErroValidacao);
         }
 
