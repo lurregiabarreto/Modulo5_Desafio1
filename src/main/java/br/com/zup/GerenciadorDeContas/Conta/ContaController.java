@@ -7,6 +7,7 @@ import br.com.zup.GerenciadorDeContas.dtos.SaidaContaDTO;
 import br.com.zup.GerenciadorDeContas.dtos.StatusContaDTO;
 import br.com.zup.GerenciadorDeContas.enuns.Status;
 import br.com.zup.GerenciadorDeContas.enuns.Tipo;
+import br.com.zup.GerenciadorDeContas.exception.StatusIncorretoException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,8 +51,12 @@ public class ContaController {
     }
     @PutMapping("/{id}")
     public SaidaContaDTO pagarConta(@RequestBody StatusContaDTO statusContaDTO, @PathVariable int id) {
+        if (statusContaDTO.getStatus() != Status.PAGO) {
+            throw new StatusIncorretoException("Deve ser informado status: PAGO");
+        }
         SaidaContaDTO respostaCadastroDTO = modelMapper.map(contaService.pagarConta(id), SaidaContaDTO.class);
         return respostaCadastroDTO;
 
     }
+
 }
