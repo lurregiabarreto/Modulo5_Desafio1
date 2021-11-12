@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ContaService {
@@ -24,6 +22,7 @@ public class ContaService {
         return contaRepository.save(conta);
 
     }
+
     public Status atualizarStatusConta(Conta conta) {
         if (conta.getDataDeVencimento().isBefore(LocalDate.now())) {
             conta.setStatus(Status.VENCIDA);
@@ -33,6 +32,7 @@ public class ContaService {
         return conta.getStatus();
 
     }
+
     public List<Conta> buscarContasCadastradas(Status status, Tipo tipo, Double valor) {
         if (status != null) {
             return contaRepository.findAllByStatus(status);
@@ -48,13 +48,10 @@ public class ContaService {
     }
 
     public Conta localizarContaPorId(int id) {
-        Optional<Conta> contaOptional = contaRepository.findById(id);
-        if (contaOptional.isPresent()) {
-            return contaOptional.get();
-        }
-
-        throw new ContaNaoEncontradaException("Conta não encontrada!");
+        return contaRepository.findById(id)
+                .orElseThrow(() -> new ContaNaoEncontradaException("Conta não encontrada!"));
     }
+
     public Conta pagarConta(int id) {
         Conta conta = localizarContaPorId(id);
         conta.setStatus(Status.PAGO);
@@ -63,13 +60,14 @@ public class ContaService {
 
         return conta;
     }
-    public LocalDateTime formatarDataEHora() {
-        LocalDateTime dataAgora = LocalDateTime.now();
-        DateTimeFormatter formatar = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dataDePagamento = dataAgora.format(formatar);
 
-        return LocalDateTime.parse(dataDePagamento, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public void deletarConta(int id) {
+        if (contaRepository.existsById(id)) {
+            contaRepository.deleteById(id);
+        } else {
+            throw new ContaNaoEncontradaException("Conta não localizada!");
+        }
+
+
     }
-
-
 }

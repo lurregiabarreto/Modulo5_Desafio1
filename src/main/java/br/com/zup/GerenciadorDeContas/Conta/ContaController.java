@@ -43,7 +43,7 @@ public class ContaController {
                                                         @RequestParam(required = false) Double valor) {
         List<ResumoContaDTO> listaResumo = new ArrayList<>();
 
-        for (Conta conta : contaService.buscarContasCadastradas()) {
+        for (Conta conta : contaService.buscarContasCadastradas(status, tipo, valor)) {
             ResumoContaDTO resumo = modelMapper.map(conta, ResumoContaDTO.class);
             listaResumo.add(resumo);
         }
@@ -62,6 +62,10 @@ public class ContaController {
     public Conta pesquisarContaPorId(@PathVariable int id) {
         return contaService.localizarContaPorId(id);
     }
-
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarConta(@PathVariable int id) {
+        contaService.deletarCarro(id);
+    }
 
 }
