@@ -31,17 +31,17 @@ public class ControllerAdvisor {
     }
     @ExceptionHandler(ContaNaoEncontradaException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MensagemDeErro ExcecaoDeContaNaoLocalizada(ContaNaoEncontradaException exception) {
+    public MensagemDeErro ExcecaoDeContaNaoEncontrada(ContaNaoEncontradaException exception) {
         return new MensagemDeErro(exception.getMessage());
     }
     @ExceptionHandler(StatusIncorretoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MensagemDeErro statusInvalidoException(StatusIncorretoException exception) {
+    public MensagemDeErro statusIncorretoException(StatusIncorretoException exception) {
         return new MensagemDeErro(exception.getLocalizedMessage());
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MensagemDeErro ExcecaoDeEnumInvalido(HttpMessageNotReadableException exception) {
+    public MensagemDeErro EnumInvalidoException (HttpMessageNotReadableException exception) {
         return new MensagemDeErro("Tipo inválido!");
     }
 
