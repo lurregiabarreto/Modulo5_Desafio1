@@ -65,7 +65,7 @@ public class ContaController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarConta(@PathVariable int id) {
-        contaService.deletarCarro(id);
+        contaService.deletarConta(id);
     }
 
 }
