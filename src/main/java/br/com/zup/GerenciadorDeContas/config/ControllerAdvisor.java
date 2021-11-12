@@ -18,33 +18,38 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public List<MensagemDeErro> manipularErrosValidacao(MethodArgumentNotValidException exception) {
-        List<MensagemDeErro> erros = new ArrayList<>();
+    public List<MensagemErroValidacao> mensagemErroValidacao(MethodArgumentNotValidException exception) {
+        List<MensagemErroValidacao> erros = new ArrayList<>();
 
-        for (FieldError referencia : exception.getFieldErrors()) {
-            MensagemDeErro mensagemDeErro = new MensagemDeErro(referencia.getDefaultMessage());
-            erros.add(mensagemDeErro);
+        for (FieldError fieldError : exception.getFieldErrors()) {
+            MensagemErroValidacao mensagemErroValidacao = new MensagemErroValidacao(fieldError.getField(),
+                    fieldError.getDefaultMessage());
+            erros.add(mensagemErroValidacao);
         }
 
         return erros;
-
     }
+
     @ExceptionHandler(ContaNaoEncontradaException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MensagemDeErro ExcecaoDeContaNaoEncontrada(ContaNaoEncontradaException exception) {
+    public MensagemDeErro ExcecaoDeContaNaoLocalizada(ContaNaoEncontradaException exception) {
         return new MensagemDeErro(exception.getMessage());
     }
+
     @ExceptionHandler(StatusIncorretoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MensagemDeErro statusIncorretoException(StatusIncorretoException exception) {
+    public MensagemDeErro statusInvalidoException(StatusIncorretoException exception) {
         return new MensagemDeErro(exception.getLocalizedMessage());
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MensagemDeErro EnumInvalidoException (HttpMessageNotReadableException exception) {
+    public MensagemDeErro ExcecaoDeEnumInvalido(HttpMessageNotReadableException exception) {
         return new MensagemDeErro("Tipo inválido!");
     }
 
 
 }
+
+
 
